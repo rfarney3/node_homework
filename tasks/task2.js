@@ -11,7 +11,7 @@ csv()
             if (err) throw err;
 
             // success case, the file was saved
-            console.log('Lyric saved!');
+            console.log('Saved!');
         });
     });
 

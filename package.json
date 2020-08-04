@@ -4,12 +4,15 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "task1": "node tasks/task1",
-        "task2": "node tasks/task2"
+        "task1": "nodemon --exec babel-node tasks/task1",
+        "task2": "nodemon --exec babel-node tasks/task2"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@babel/core": "^7.11.1",
+        "@babel/node": "^7.10.5",
+        "@babel/preset-env": "^7.11.0",
         "nodemon": "^2.0.4"
     },
     "dependencies": {
