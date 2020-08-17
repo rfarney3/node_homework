@@ -11,5 +11,3 @@ pipeline(fs.createReadStream(csvFilePath), zlib.createGzip(), fs.createWriteStre
         console.log("Saved!")
     }
 })
-
-readStream.pipe(csv()).pipe(writeStream);
