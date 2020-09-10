@@ -6,6 +6,15 @@ const port = 3000;
 
 const db = require("./config/database")
 
+// (async () => {
+//   await db.sync();
+//   const jane = await User.create({
+//     username: 'janedoe',
+//     birthday: new Date(1980, 6, 20)
+//   });
+//   console.log(jane.toJSON());
+// })();
+
 db.authenticate()
 .then(() => console.log('Connection has been established successfully.'))
 .catch(error => console.error('Unable to connect to the database:', error));
