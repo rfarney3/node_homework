@@ -13,7 +13,7 @@ router.get("/", (req, res) =>
   User.findAll()
     .then(users => {
       console.log(users)
-      res.sendStatus(200)
+      res.json(users)
     })
     .catch(err => console.log(err))
 )
@@ -22,8 +22,8 @@ router.get("/", (req, res) =>
 // @desc Get Users Profile by user id
 // @access Public
 
-router.get('/:id', (req, res) => {
-  const user = userData.find((user) => user.id === req.params.id);
+router.get('/:id', async (req, res) => {
+  const user = await User.findByPk(req.params.id);
 
   if (!user) {
       return res.status(400).json({ msg: 'User not found' });
@@ -35,8 +35,8 @@ router.get('/:id', (req, res) => {
 // @desc Get Users Profile by user id
 // @access Public
 
-router.put('/delete/:id', (req, res) => {
-  const user = userData.find((user) => user.id === req.params.id);
+router.put('/delete/:id', async (req, res) => {
+  const user = await User.findByPk(req.params.id);
   user.isDeleted = true;
 
   if (!user) {
@@ -65,14 +65,14 @@ router.post(
           .matches(/\d/),
       check('age', 'Age is a required field').isInt({ min: 4, max: 130 }),
   ],
-  (req, res) => {
+  async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
           return res.status(400).json({ errors: errors.array() });
       }
       const { id, login, password, age, isDeleted } = req.body;
 
-      let user = userData.find((user) => user.id === req.params.id);
+      let user = await User.findByPk(req.params.id);
       if (user) {
           //Update
           user = { id, login, password, age, isDeleted };
