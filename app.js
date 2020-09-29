@@ -21,6 +21,7 @@ db.authenticate()
 
 // User routes
 app.use("/users", require("./routes/Users"))
+app.use("/groups", require("./routes/Groups"))
 app.listen(port, console.log(`Example app listening at http://localhost:${port}`));
 
 app.use(bodyParser.json());
