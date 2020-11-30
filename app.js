@@ -6,14 +6,37 @@ const port = 3000;
 
 const db = require("./config/database")
 
-// (async () => {
-//   await db.sync();
-//   const jane = await User.create({
-//     username: 'janedoe',
-//     birthday: new Date(1980, 6, 20)
-//   });
-//   console.log(jane.toJSON());
-// })();
+const { createLogger, transports } = require('winston');
+
+// Enable exception handling when you create your logger.
+const logger = createLogger({
+  transports: [
+    new transports.File({ filename: 'combined.log' }) 
+  ],
+  exceptionHandlers: [
+    new transports.File({ filename: 'exceptions.log' })
+  ],
+  rejectionHandlers: [
+    new transports.File({ filename: 'rejections.log' })
+  ]
+});
+
+logger.exceptions.handle(
+    new transports.File({ filename: 'exceptions.log' })
+);
+
+logger.rejections.handle(
+    new transports.File({ filename: 'rejections.log' })
+);
+
+process
+  .on('unhandledRejection', (reason, p) => {
+    console.error(reason, 'Unhandled Rejection at Promise', p);
+  })
+  .on('uncaughtException', err => {
+    console.error(err, 'Uncaught Exception thrown');
+    process.exit(1);
+});
 
 db.authenticate()
 .then(() => console.log('Connection has been established successfully.'))
