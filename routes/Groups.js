@@ -56,7 +56,7 @@ router.put('/delete/:id', auth, async (req, res) => {
 });
 
 // @route POST
-// @desc Get Users Profile by user id
+// @desc Create a group
 // @access Public
 
 router.post('/', auth, async (req, res) => {
@@ -67,7 +67,7 @@ router.post('/', auth, async (req, res) => {
         //Update
         group = { id, name, permissions };
         await group.save();
-        winston.log('info', 'Get Users Profile by user id!', {
+        winston.log('info', 'Updated group!', {
           group: group
         })
         return res.json(group);
@@ -75,6 +75,9 @@ router.post('/', auth, async (req, res) => {
 
     //Create
     group = { id, login, password, age, isDeleted };
+      winston.log('info', 'Created group!', {
+        group: group
+      })
     await Group.create(group);
     res.json(group);
   }

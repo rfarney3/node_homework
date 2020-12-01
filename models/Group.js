@@ -9,9 +9,6 @@ const Group = db.define("group", {
     type: Sequelize.NUMBER,
     primaryKey: true
   },
-  permissions: {
-      type: Sequelize.ARRAY
-  }
 })
 
 module.exports = Group;
